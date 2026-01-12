@@ -2,6 +2,10 @@
 
 Android Wear OS (okosóra) alkalmazás, amely megjeleníti a heti órarendet valós idejű visszaszámlálással.
 
+## ⚠️ Fontos megjegyzés
+
+Ez a projekt egy Android Wear OS alkalmazás, amely Android Studio-ban és Android fejlesztői környezetben buildelendő. A projekt tartalmazza az összes szükséges fájlt és kódot a működéshez.
+
 ## Funkciók
 
 - **Órarend megjelenítés** - A heti órarend megjelenítése napok szerint
