@@ -28,11 +28,11 @@ data class TimeSlot(
     
     fun getRemainingSeconds(currentTime: LocalTime): Long {
         if (currentTime.isBefore(startTime)) {
-            return 0
+            return 0L
         }
         val current = currentTime.toSecondOfDay()
         val end = endTime.toSecondOfDay()
-        return maxOf(0, end - current)
+        return maxOf(0, end - current).toLong()
     }
 }
 
