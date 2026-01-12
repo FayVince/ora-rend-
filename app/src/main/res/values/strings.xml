@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Órarend</string>
+    <string name="current_lesson">Jelenlegi óra</string>
+    <string name="next_lesson">Következő óra</string>
+    <string name="remaining_time">Hátra: %s</string>
+    <string name="break_time">Szünet</string>
+    <string name="no_more_lessons">Nincs több óra ma</string>
+    <string name="weekend">Hétvége</string>
+    <string name="teacher">Tanár: %s</string>
+    <string name="room">Terem: %s</string>
+</resources>
