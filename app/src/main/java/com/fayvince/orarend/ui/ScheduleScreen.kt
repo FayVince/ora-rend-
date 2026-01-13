@@ -90,12 +90,6 @@ fun ScheduleScreen(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = "Tanár: ${state.currentLesson!!.teacher}",
-                                    style = MaterialTheme.typography.body2,
-                                    textAlign = TextAlign.Center
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-                                Text(
                                     text = "Terem: ${state.currentLesson!!.room}",
                                     style = MaterialTheme.typography.body2,
                                     textAlign = TextAlign.Center
@@ -152,7 +146,7 @@ fun ScheduleScreen(
                                         overflow = TextOverflow.Ellipsis
                                     )
                                     Text(
-                                        text = "${state.nextLesson!!.teacher} • ${state.nextLesson!!.room}",
+                                        text = state.nextLesson!!.room,
                                         style = MaterialTheme.typography.caption2,
                                         textAlign = TextAlign.Center,
                                         color = Color.Gray
@@ -210,12 +204,6 @@ fun ScheduleScreen(
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
-                                Text(
-                                    text = "Tanár: ${state.nextLesson!!.teacher}",
-                                    style = MaterialTheme.typography.body2,
-                                    textAlign = TextAlign.Center
-                                )
-                                Spacer(modifier = Modifier.height(2.dp))
                                 Text(
                                     text = "Terem: ${state.nextLesson!!.room}",
                                     style = MaterialTheme.typography.body2,

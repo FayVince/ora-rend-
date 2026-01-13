@@ -8,7 +8,6 @@ import java.time.LocalTime
  */
 data class Lesson(
     val subject: String,
-    val teacher: String,
     val room: String,
     val dayOfWeek: DayOfWeek,
     val periodNumber: Int
@@ -56,44 +55,52 @@ object Schedule {
     // Based on typical Hungarian high school schedule
     val lessons = listOf(
         // Monday (Hétfő)
-        Lesson("Matematika", "Nagy T.", "E112", DayOfWeek.MONDAY, 1),
-        Lesson("Történelem", "Kovács M.", "E201", DayOfWeek.MONDAY, 2),
-        Lesson("Angol", "Smith J.", "E305", DayOfWeek.MONDAY, 3),
-        Lesson("Testnevelés", "Szabó P.", "Tornaterem", DayOfWeek.MONDAY, 4),
-        Lesson("Fizika", "Kiss L.", "F102", DayOfWeek.MONDAY, 5),
-        Lesson("Informatika", "Balogh A.", "D215", DayOfWeek.MONDAY, 6),
+        Lesson("Fizika", "Jedlik", DayOfWeek.MONDAY, 1),
+        Lesson("Fizika", "Jedlik", DayOfWeek.MONDAY, 2),
+        Lesson("Német", "11.A", DayOfWeek.MONDAY, 3),
+        Lesson("Irodalom", "11.A", DayOfWeek.MONDAY, 4),
+        Lesson("Tesi", "Tornaterem", DayOfWeek.MONDAY, 5),
+        Lesson("Informatika", "i3", DayOfWeek.MONDAY, 6),
+        Lesson("Angol", "Nyelvi 6", DayOfWeek.MONDAY, 7),
+        Lesson("Honvédelem", "11.A", DayOfWeek.MONDAY, 8),
         
         // Tuesday (Kedd)
-        Lesson("Magyar", "Horváth E.", "E103", DayOfWeek.TUESDAY, 1),
-        Lesson("Matematika", "Nagy T.", "E112", DayOfWeek.TUESDAY, 2),
-        Lesson("Kémia", "Molnár K.", "F201", DayOfWeek.TUESDAY, 3),
-        Lesson("Biológia", "Farkas B.", "F203", DayOfWeek.TUESDAY, 4),
-        Lesson("Történelem", "Kovács M.", "E201", DayOfWeek.TUESDAY, 5),
-        Lesson("Angol", "Smith J.", "E305", DayOfWeek.TUESDAY, 6),
         
+        Lesson("Osztályfőnöki", "11.A", DayOfWeek.TUESDAY, 3),
+        Lesson("Angol", "Nyelvi 3", DayOfWeek.TUESDAY, 4),
+        Lesson("Német", "9.C", DayOfWeek.TUESDAY, 5),
+        Lesson("Matek", "11.A", DayOfWeek.TUESDAY, 6),
+        Lesson("Töri", "11.A", DayOfWeek.TUESDAY, 7),
+        
+
         // Wednesday (Szerda)
-        Lesson("Fizika", "Kiss L.", "F102", DayOfWeek.WEDNESDAY, 1),
-        Lesson("Magyar", "Horváth E.", "E103", DayOfWeek.WEDNESDAY, 2),
-        Lesson("Matematika", "Nagy T.", "E112", DayOfWeek.WEDNESDAY, 3),
-        Lesson("Testnevelés", "Szabó P.", "Tornaterem", DayOfWeek.WEDNESDAY, 4),
-        Lesson("Informatika", "Balogh A.", "D215", DayOfWeek.WEDNESDAY, 5),
-        Lesson("Földrajz", "Tóth G.", "E207", DayOfWeek.WEDNESDAY, 6),
-        
+        Lesson("Informatika", "i3", DayOfWeek.WEDNESDAY, 1),
+        Lesson("Informatika", "i3", DayOfWeek.WEDNESDAY, 2),
+        Lesson("Ének", "Énekterem", DayOfWeek.WEDNESDAY, 3),
+        Lesson("Töri", "11.A", DayOfWeek.WEDNESDAY, 4),
+        Lesson("Angol", "Nyelvi 3", DayOfWeek.WEDNESDAY, 5),
+        Lesson("Német", "11.A", DayOfWeek.WEDNESDAY, 6),
+        Lesson("Matek", "11.A", DayOfWeek.WEDNESDAY, 7),
+        Lesson("Matek", "11.A", DayOfWeek.WEDNESDAY, 8),
+
         // Thursday (Csütörtök)
-        Lesson("Angol", "Smith J.", "E305", DayOfWeek.THURSDAY, 1),
-        Lesson("Történelem", "Kovács M.", "E201", DayOfWeek.THURSDAY, 2),
-        Lesson("Kémia", "Molnár K.", "F201", DayOfWeek.THURSDAY, 3),
-        Lesson("Magyar", "Horváth E.", "E103", DayOfWeek.THURSDAY, 4),
-        Lesson("Matematika", "Nagy T.", "E112", DayOfWeek.THURSDAY, 5),
-        Lesson("Biológia", "Farkas B.", "F203", DayOfWeek.THURSDAY, 6),
+        Lesson("Rajz", "Rajzterem", DayOfWeek.THURSDAY, 1),
+        Lesson("Tesi", "Tornaterem", DayOfWeek.THURSDAY, 2),
+        Lesson("Magyar", "11.A", DayOfWeek.THURSDAY, 3),
+        Lesson("Angol", "Nyelvi 2!!!", DayOfWeek.THURSDAY, 4),
+        Lesson("Német", "7.A", DayOfWeek.THURSDAY, 5),
+        Lesson("Matek", "11.A", DayOfWeek.THURSDAY, 6),
         
         // Friday (Péntek)
-        Lesson("Matematika", "Nagy T.", "E112", DayOfWeek.FRIDAY, 1),
-        Lesson("Fizika", "Kiss L.", "F102", DayOfWeek.FRIDAY, 2),
-        Lesson("Testnevelés", "Szabó P.", "Tornaterem", DayOfWeek.FRIDAY, 3),
-        Lesson("Magyar", "Horváth E.", "E103", DayOfWeek.FRIDAY, 4),
-        Lesson("Angol", "Smith J.", "E305", DayOfWeek.FRIDAY, 5),
-        Lesson("Informatika", "Balogh A.", "D215", DayOfWeek.FRIDAY, 6)
+        Lesson("Irodalom", "11.A", DayOfWeek.FRIDAY, 1),
+        Lesson("Magyar", "11.A", DayOfWeek.FRIDAY, 2),
+        Lesson("Informatika", "i3", DayOfWeek.FRIDAY, 3),
+        Lesson("Matek", "11.A", DayOfWeek.FRIDAY, 4),
+        Lesson("Töri", "11.A", DayOfWeek.FRIDAY, 5),
+        Lesson("Tesi", "Tornaterem", DayOfWeek.FRIDAY, 6),
+        Lesson("Fizika", "Vermes", DayOfWeek.FRIDAY, 7),
+        Lesson("Fizika", "Vermes", DayOfWeek.FRIDAY, 8)
+
     )
     
     fun getLessonsForDay(dayOfWeek: DayOfWeek): List<Lesson> {
