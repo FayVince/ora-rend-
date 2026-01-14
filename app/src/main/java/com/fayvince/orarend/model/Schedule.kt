@@ -21,6 +21,10 @@ data class TimeSlot(
     val startTime: LocalTime,
     val endTime: LocalTime
 ) {
+    // Pre-compute seconds for performance optimization (private as only used internally)
+    private val startSeconds = startTime.toSecondOfDay()
+    private val endSeconds = endTime.toSecondOfDay()
+    
     fun isInPeriod(time: LocalTime): Boolean {
         return !time.isBefore(startTime) && time.isBefore(endTime)
     }
@@ -30,8 +34,7 @@ data class TimeSlot(
             return 0L
         }
         val current = currentTime.toSecondOfDay()
-        val end = endTime.toSecondOfDay()
-        return maxOf(0, end - current).toLong()
+        return maxOf(0, endSeconds - current).toLong()
     }
 }
 
@@ -103,9 +106,32 @@ object Schedule {
 
     )
     
+    // Pre-computed cache: lessons grouped by day and sorted by period number
+    // This avoids repeated filtering and sorting on every call to getLessonsForDay
+    // Note: These caches assume the lessons list is immutable after object creation
+    private val lessonsByDay: Map<DayOfWeek, List<Lesson>> = lessons
+        .groupBy { it.dayOfWeek }
+        .mapValues { (_, dayLessons) -> 
+            dayLessons.sortedBy { it.periodNumber }
+        }
+    
+    // Cache for quick lesson lookup by day and period number
+    private val lessonsByDayAndPeriod: Map<DayOfWeek, Map<Int, Lesson>> = lessons
+        .groupBy { it.dayOfWeek }
+        .mapValues { (_, dayLessons) ->
+            dayLessons.associateBy { it.periodNumber }
+        }
+    
+    // Cache first and last time slots for quick access
+    private val firstTimeSlot = timeSlots.first()
+    private val lastTimeSlot = timeSlots.last()
+    
     fun getLessonsForDay(dayOfWeek: DayOfWeek): List<Lesson> {
-        return lessons.filter { it.dayOfWeek == dayOfWeek }
-            .sortedBy { it.periodNumber }
+        return lessonsByDay[dayOfWeek] ?: emptyList()
+    }
+    
+    fun getLessonForDayAndPeriod(dayOfWeek: DayOfWeek, periodNumber: Int): Lesson? {
+        return lessonsByDayAndPeriod[dayOfWeek]?.get(periodNumber)
     }
     
     fun getCurrentPeriod(currentTime: LocalTime): TimeSlot? {
@@ -118,7 +144,7 @@ object Schedule {
     
     fun isBreakTime(currentTime: LocalTime): Boolean {
         return getCurrentPeriod(currentTime) == null && 
-               currentTime.isAfter(timeSlots.first().startTime) &&
-               currentTime.isBefore(timeSlots.last().endTime)
+               currentTime.isAfter(firstTimeSlot.startTime) &&
+               currentTime.isBefore(lastTimeSlot.endTime)
     }
 }
