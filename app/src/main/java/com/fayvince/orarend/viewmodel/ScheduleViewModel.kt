@@ -55,7 +55,7 @@ class ScheduleViewModel : ViewModel() {
         val isWeekend = today == DayOfWeek.SATURDAY || today == DayOfWeek.SUNDAY
         
         if (isWeekend) {
-            // Only update if day changed to avoid unnecessary state updates
+            // Only update state when day changes on weekends, but always update time
             if (lastDay != today) {
                 _state.value = ScheduleState(
                     currentTime = now,
@@ -64,6 +64,9 @@ class ScheduleViewModel : ViewModel() {
                     isSchoolDay = false
                 )
                 lastDay = today
+            } else {
+                // Update only the time to keep it fresh even on weekends
+                _state.value = _state.value.copy(currentTime = now)
             }
             return
         }

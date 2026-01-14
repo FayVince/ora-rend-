@@ -108,6 +108,7 @@ object Schedule {
     
     // Pre-computed cache: lessons grouped by day and sorted by period number
     // This avoids repeated filtering and sorting on every call to getLessonsForDay
+    // Note: These caches assume the lessons list is immutable after object creation
     private val lessonsByDay: Map<DayOfWeek, List<Lesson>> = lessons
         .groupBy { it.dayOfWeek }
         .mapValues { (_, dayLessons) -> 
