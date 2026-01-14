@@ -31,6 +31,9 @@ class ScheduleViewModel : ViewModel() {
     private val _state = MutableStateFlow(ScheduleState())
     val state: StateFlow<ScheduleState> = _state.asStateFlow()
     
+    // Cache last day to avoid unnecessary updates
+    private var lastDay: DayOfWeek? = null
+    
     init {
         startTimeUpdate()
     }
@@ -47,29 +50,35 @@ class ScheduleViewModel : ViewModel() {
     private fun updateState() {
         val now = LocalTime.now()
         val today = LocalDate.now().dayOfWeek
+        
+        // Check if weekend - cache this check since it only changes daily
         val isWeekend = today == DayOfWeek.SATURDAY || today == DayOfWeek.SUNDAY
         
         if (isWeekend) {
-            _state.value = ScheduleState(
-                currentTime = now,
-                currentDay = today,
-                isWeekend = true,
-                isSchoolDay = false
-            )
+            // Only update if day changed to avoid unnecessary state updates
+            if (lastDay != today) {
+                _state.value = ScheduleState(
+                    currentTime = now,
+                    currentDay = today,
+                    isWeekend = true,
+                    isSchoolDay = false
+                )
+                lastDay = today
+            }
             return
         }
         
-        val todayLessons = Schedule.getLessonsForDay(today)
         val currentPeriod = Schedule.getCurrentPeriod(now)
         val nextPeriod = Schedule.getNextPeriod(now)
         val isBreak = Schedule.isBreakTime(now)
         
+        // Use optimized lookup instead of find() on list
         val currentLesson = if (currentPeriod != null) {
-            todayLessons.find { it.periodNumber == currentPeriod.periodNumber }
+            Schedule.getLessonForDayAndPeriod(today, currentPeriod.periodNumber)
         } else null
         
         val nextLesson = if (nextPeriod != null) {
-            todayLessons.find { it.periodNumber == nextPeriod.periodNumber }
+            Schedule.getLessonForDayAndPeriod(today, nextPeriod.periodNumber)
         } else null
         
         val remainingSeconds = if (currentPeriod != null) {
@@ -94,6 +103,8 @@ class ScheduleViewModel : ViewModel() {
             isWeekend = false,
             isSchoolDay = isSchoolDay
         )
+        
+        lastDay = today
     }
     
     fun formatRemainingTime(seconds: Long): String {
