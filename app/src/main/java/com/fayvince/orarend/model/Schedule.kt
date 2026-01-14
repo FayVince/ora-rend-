@@ -21,7 +21,7 @@ data class TimeSlot(
     val startTime: LocalTime,
     val endTime: LocalTime
 ) {
-    // Pre-compute seconds for performance optimization
+    // Pre-compute seconds for performance optimization (private as only used internally)
     private val startSeconds = startTime.toSecondOfDay()
     private val endSeconds = endTime.toSecondOfDay()
     
